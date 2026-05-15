@@ -1,16 +1,28 @@
 # =========================================================
 # rollout.py
-# COMPLETE UPDATED VERSION
+# ULTIMATE DIRECTIONAL VERSION
+# - Directional Alignment
+# - Goal-Oriented Multi Jumping
+# - Dynamic Weights
+# - Beam Rollouts
+# - Locked Goal Pieces
+# - Dependency Endgame
 # =========================================================
 
 import random
 import math
+from collections import deque
 
 from mcts_utils import (
     apply_move,
     undo_move,
     has_won,
 )
+
+# =====================================================
+# MOVE CACHE
+# =====================================================
+MOVE_CACHE = {}
 
 # =====================================================
 # GOAL DEPTH
@@ -86,7 +98,6 @@ def build_goal_dependency_map(board):
                     other
                 )
 
-                # deeper cells are parents
                 if od > d:
 
                     deps[colour][idx].append(
@@ -94,210 +105,6 @@ def build_goal_dependency_map(board):
                     )
 
     return deps
-
-
-# =====================================================
-# GOAL FILL VALIDATION
-# =====================================================
-def goal_fill_allowed(
-    board,
-    pins,
-    colour,
-    idx,
-    deps
-):
-
-    goal = board.colour_opposites[
-        colour
-    ]
-
-    # not inside target triangle
-    if (
-        board.cells[idx].postype
-        != goal
-    ):
-        return True
-
-    occupied = set(
-        p.axialindex
-        for p in pins
-    )
-
-    # parent cells should ideally exist
-    for parent in deps[goal][idx]:
-
-        if parent not in occupied:
-            return False
-
-    return True
-
-
-# =====================================================
-# CHECK IF PIN CAN STILL MOVE DEEPER
-# =====================================================
-def has_upward_goal_move(
-    board,
-    pin,
-    colour
-):
-
-    current_depth = goal_depth(
-        board,
-        pin.axialindex
-    )
-
-    goal = board.colour_opposites[
-        colour
-    ]
-
-    for nxt in pin.getPossibleMoves():
-
-        # only inside goal
-        if (
-            board.cells[nxt].postype
-            != goal
-        ):
-            continue
-
-        nd = goal_depth(
-            board,
-            nxt
-        )
-
-        # deeper move exists
-        if nd > current_depth:
-            return True
-
-    return False
-
-
-# =====================================================
-# LOCKED PIN CHECK
-# =====================================================
-def pin_is_locked(
-    board,
-    pin,
-    pins,
-    colour,
-    deps
-):
-
-    idx = pin.axialindex
-
-    goal = board.colour_opposites[
-        colour
-    ]
-
-    # not inside target
-    if (
-        board.cells[idx].postype
-        != goal
-    ):
-        return False
-
-    occupied = set(
-        p.axialindex
-        for p in pins
-    )
-
-    # parents not complete
-    for parent in deps[goal][idx]:
-
-        if parent not in occupied:
-            return False
-
-    # can still move deeper
-    if has_upward_goal_move(
-        board,
-        pin,
-        colour
-    ):
-        return False
-
-    return True
-
-
-# =====================================================
-# BLOCKING PENALTY
-# =====================================================
-def goal_blocking_penalty(
-    board,
-    pins,
-    colour
-):
-
-    goal = board.colour_opposites[
-        colour
-    ]
-
-    penalty = 0
-
-    occupied = set(
-        p.axialindex
-        for p in pins
-    )
-
-    for idx in occupied:
-
-        cell = board.cells[idx]
-
-        if cell.postype != goal:
-            continue
-
-        depth = goal_depth(
-            board,
-            idx
-        )
-
-        # entrance-ish cells
-        if depth <= 8:
-
-            behind_empty = False
-
-            for other in board.axial_of_colour(goal):
-
-                if other in occupied:
-                    continue
-
-                other_depth = goal_depth(
-                    board,
-                    other
-                )
-
-                if other_depth > depth:
-
-                    behind_empty = True
-                    break
-
-            if behind_empty:
-                penalty += 250
-
-    return penalty
-
-
-# =====================================================
-# HEX DISTANCE
-# =====================================================
-def move_distance(
-    board,
-    a_idx,
-    b_idx
-):
-
-    a = board.cells[a_idx]
-    b = board.cells[b_idx]
-
-    aq, ar = a.q, a.r
-    as_ = -aq - ar
-
-    bq, br = b.q, b.r
-    bs = -bq - br
-
-    return max(
-        abs(aq - bq),
-        abs(ar - br),
-        abs(as_ - bs)
-    )
 
 
 # =====================================================
@@ -339,6 +146,392 @@ def dist_to_goal(
         best = min(best, d)
 
     return best
+
+
+# =====================================================
+# DIRECTIONAL PROGRESS
+# =====================================================
+def directional_progress(
+    board,
+    from_idx,
+    to_idx,
+    colour
+):
+
+    old_d = dist_to_goal(
+        board,
+        from_idx,
+        colour
+    )
+
+    new_d = dist_to_goal(
+        board,
+        to_idx,
+        colour
+    )
+
+    return old_d - new_d
+
+
+# =====================================================
+# TARGET CENTER
+# =====================================================
+def goal_center(
+    board,
+    colour
+):
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    cells = board.axial_of_colour(
+        goal
+    )
+
+    qsum = 0
+    rsum = 0
+
+    for idx in cells:
+
+        c = board.cells[idx]
+
+        qsum += c.q
+        rsum += c.r
+
+    n = len(cells)
+
+    return (
+        qsum / n,
+        rsum / n
+    )
+
+
+# =====================================================
+# DIRECTIONAL ALIGNMENT
+# =====================================================
+def directional_alignment(
+    board,
+    from_idx,
+    to_idx,
+    colour
+):
+
+    from_cell = board.cells[
+        from_idx
+    ]
+
+    to_cell = board.cells[
+        to_idx
+    ]
+
+    tq, tr = goal_center(
+        board,
+        colour
+    )
+
+    # move vector
+    mv_q = to_cell.q - from_cell.q
+    mv_r = to_cell.r - from_cell.r
+
+    # target vector
+    tv_q = tq - from_cell.q
+    tv_r = tr - from_cell.r
+
+    move_mag = math.sqrt(
+        mv_q * mv_q +
+        mv_r * mv_r
+    )
+
+    target_mag = math.sqrt(
+        tv_q * tv_q +
+        tv_r * tv_r
+    )
+
+    if move_mag == 0:
+        return 0.0
+
+    if target_mag == 0:
+        return 1.0
+
+    dot = (
+        mv_q * tv_q +
+        mv_r * tv_r
+    )
+
+    cosine = dot / (
+        move_mag *
+        target_mag
+    )
+
+    return max(0.0, cosine)
+
+
+# =====================================================
+# HEX DISTANCE
+# =====================================================
+def move_distance(
+    board,
+    a_idx,
+    b_idx
+):
+
+    a = board.cells[a_idx]
+    b = board.cells[b_idx]
+
+    aq, ar = a.q, a.r
+    as_ = -aq - ar
+
+    bq, br = b.q, b.r
+    bs = -bq - br
+
+    return max(
+        abs(aq - bq),
+        abs(ar - br),
+        abs(as_ - bs)
+    )
+
+
+# =====================================================
+# CACHED MOVES
+# =====================================================
+def cached_moves(
+    board,
+    pin
+):
+
+    state_key = (
+        pin.axialindex,
+        tuple(
+            c.occupied
+            for c in board.cells
+        )
+    )
+
+    if state_key in MOVE_CACHE:
+        return MOVE_CACHE[state_key]
+
+    moves = pin.getPossibleMoves()
+
+    MOVE_CACHE[state_key] = moves
+
+    return moves
+
+
+# =====================================================
+# GOAL FILL VALIDATION
+# =====================================================
+def goal_fill_allowed(
+    board,
+    pins,
+    colour,
+    idx,
+    deps
+):
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    if (
+        board.cells[idx].postype
+        != goal
+    ):
+        return True
+
+    occupied = set(
+        p.axialindex
+        for p in pins
+    )
+
+    for parent in deps[goal][idx]:
+
+        if parent not in occupied:
+            return False
+
+    return True
+
+
+# =====================================================
+# UPWARD GOAL MOVE
+# =====================================================
+def has_upward_goal_move(
+    board,
+    pin,
+    colour
+):
+
+    current_depth = goal_depth(
+        board,
+        pin.axialindex
+    )
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    for nxt in cached_moves(
+        board,
+        pin
+    ):
+
+        if (
+            board.cells[nxt].postype
+            != goal
+        ):
+            continue
+
+        nd = goal_depth(
+            board,
+            nxt
+        )
+
+        if nd > current_depth:
+            return True
+
+    return False
+
+
+# =====================================================
+# LOCKED PIN CHECK
+# =====================================================
+def pin_is_locked(
+    board,
+    pin,
+    pins,
+    colour,
+    deps
+):
+
+    idx = pin.axialindex
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    if (
+        board.cells[idx].postype
+        != goal
+    ):
+        return False
+
+    occupied = set(
+        p.axialindex
+        for p in pins
+    )
+
+    for parent in deps[goal][idx]:
+
+        if parent not in occupied:
+            return False
+
+    if has_upward_goal_move(
+        board,
+        pin,
+        colour
+    ):
+        return False
+
+    return True
+
+
+# =====================================================
+# GAME PHASE
+# =====================================================
+def game_phase(
+    board,
+    pins_by_colour,
+    colour
+):
+
+    pins = pins_by_colour[colour]
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    in_goal = sum(
+        1
+        for p in pins
+        if (
+            board.cells[
+                p.axialindex
+            ].postype
+            == goal
+        )
+    )
+
+    if in_goal <= 2:
+        return "opening"
+
+    elif in_goal <= 7:
+        return "midgame"
+
+    return "endgame"
+
+
+# =====================================================
+# FUTURE JUMP POTENTIAL
+# =====================================================
+def jump_potential(
+    board,
+    pin
+):
+
+    current = pin.axialindex
+
+    reachable = set()
+
+    stack = deque()
+
+    stack.append(
+        (current, 0)
+    )
+
+    best_depth = 0
+
+    while stack:
+
+        idx, depth = stack.pop()
+
+        if idx in reachable:
+            continue
+
+        reachable.add(idx)
+
+        best_depth = max(
+            best_depth,
+            depth
+        )
+
+        pin.axialindex = idx
+
+        for nxt in cached_moves(
+            board,
+            pin
+        ):
+
+            dist = move_distance(
+                board,
+                idx,
+                nxt
+            )
+
+            if dist >= 2:
+
+                stack.append(
+                    (
+                        nxt,
+                        depth + 1
+                    )
+                )
+
+    pin.axialindex = current
+
+    return (
+        len(reachable)
+        + best_depth * 3
+    )
 
 
 # =====================================================
@@ -389,6 +582,12 @@ def rollout_move_score(
     pins_by_colour
 ):
 
+    phase = game_phase(
+        board,
+        pins_by_colour,
+        colour
+    )
+
     old_d = dist_to_goal(
         board,
         pin.axialindex,
@@ -409,15 +608,59 @@ def rollout_move_score(
         to_idx
     )
 
+    alignment = directional_alignment(
+        board,
+        pin.axialindex,
+        to_idx,
+        colour
+    )
+
+    jump_future = jump_potential(
+        board,
+        pin
+    )
+
+    # =================================================
+    # DIRECTIONAL EFFECTIVE JUMP
+    # =================================================
+    effective_jump = (
+        jump_len *
+        max(0.2, progress) *
+        (0.5 + alignment)
+    )
+
+    # =================================================
+    # DYNAMIC WEIGHTS
+    # =================================================
+    if phase == "opening":
+
+        jump_w = 110
+        prog_w = 35
+        future_w = 25
+
+    elif phase == "midgame":
+
+        jump_w = 170
+        prog_w = 55
+        future_w = 35
+
+    else:
+
+        jump_w = 70
+        prog_w = 80
+        future_w = 10
+
     score = 0.0
 
-    # =================================================
-    # AGGRESSIVE JUMPING
-    # =================================================
-    score += jump_len * 120.0
+    score += effective_jump * jump_w
 
-    # forward progress
-    score += progress * 45.0
+    score += progress * prog_w
+
+    score += jump_future * future_w
+
+    # backward punishment
+    if progress < 0:
+        score += progress * 200
 
     goal = board.colour_opposites[
         colour
@@ -436,10 +679,8 @@ def rollout_move_score(
             to_idx
         )
 
-        # deeper fill better
         score += depth * 100.0
 
-        # SOFT dependency ordering
         if not goal_fill_allowed(
             board,
             pins_by_colour[colour],
@@ -448,10 +689,66 @@ def rollout_move_score(
             deps
         ):
 
-            # soft penalty only
             score -= 200
 
     return score
+
+
+# =====================================================
+# GOAL BLOCKING PENALTY
+# =====================================================
+def goal_blocking_penalty(
+    board,
+    pins,
+    colour
+):
+
+    goal = board.colour_opposites[
+        colour
+    ]
+
+    penalty = 0
+
+    occupied = set(
+        p.axialindex
+        for p in pins
+    )
+
+    for idx in occupied:
+
+        cell = board.cells[idx]
+
+        if cell.postype != goal:
+            continue
+
+        depth = goal_depth(
+            board,
+            idx
+        )
+
+        if depth <= 8:
+
+            behind_empty = False
+
+            for other in board.axial_of_colour(goal):
+
+                if other in occupied:
+                    continue
+
+                other_depth = goal_depth(
+                    board,
+                    other
+                )
+
+                if other_depth > depth:
+
+                    behind_empty = True
+                    break
+
+            if behind_empty:
+                penalty += 250
+
+    return penalty
 
 
 # =====================================================
@@ -472,20 +769,16 @@ def rollout(
         board
     )
 
-    # fast rollout
     max_depth = 30
 
     for _ in range(max_depth):
 
         pins = pins_by_colour[player]
 
-        moves = []
+        candidate_moves = []
 
         for pin in pins:
 
-            # =============================================
-            # SKIP LOCKED PINS
-            # =============================================
             if pin_is_locked(
                 board,
                 pin,
@@ -495,11 +788,10 @@ def rollout(
             ):
                 continue
 
-            possible = (
-                pin.getPossibleMoves()
-            )
-
-            for to_idx in possible:
+            for to_idx in cached_moves(
+                board,
+                pin
+            ):
 
                 score = rollout_move_score(
                     board,
@@ -510,7 +802,7 @@ def rollout(
                     pins_by_colour
                 )
 
-                moves.append(
+                candidate_moves.append(
                     (
                         score,
                         pin,
@@ -518,12 +810,23 @@ def rollout(
                     )
                 )
 
-        if not moves:
+        if not candidate_moves:
             break
 
-        # probabilistic pick
+        # beam pruning
+        candidate_moves.sort(
+            reverse=True,
+            key=lambda x: x[0]
+        )
+
+        candidate_moves = (
+            candidate_moves[:8]
+        )
+
         _, pin, to_idx = (
-            softmax_pick(moves)
+            softmax_pick(
+                candidate_moves
+            )
         )
 
         rec = apply_move(
@@ -533,7 +836,6 @@ def rollout(
 
         history.append(rec)
 
-        # win check
         if has_won(
             board,
             pins,
@@ -578,12 +880,10 @@ def rollout(
                 colour
             )
 
-            # closer is better
             score += mult * (
                 -d * 20
             )
 
-            # inside goal
             if (
                 board.cells[
                     pin.axialindex
@@ -596,14 +896,12 @@ def rollout(
 
                 score += mult * 250
 
-    # anti-blocking
     score -= goal_blocking_penalty(
         board,
         pins_by_colour[start_player],
         start_player
     )
 
-    # win bonus
     if has_won(
         board,
         pins_by_colour[start_player],
@@ -612,7 +910,7 @@ def rollout(
 
         score += 50000
 
-    # undo rollout
+    # undo
     for rec in reversed(history):
         undo_move(rec)
 

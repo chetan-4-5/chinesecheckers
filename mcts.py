@@ -1,11 +1,18 @@
 # =========================================================
 # mcts.py
-# COMPLETE UPDATED VERSION
+# ULTIMATE DIRECTIONAL VERSION
+# - Directional Alignment
+# - Forward Chain Optimization
+# - Beam Search
+# - Dynamic Weights
+# - Endgame Solver
+# - Move Cache
 # =========================================================
 
 import time
 import random
 import math
+from collections import deque
 
 from mcts_node import MCTSNode
 
@@ -43,10 +50,19 @@ class MCTS:
 
         self.root = None
 
-        # transposition table
+        # =================================================
+        # TRANSPOSITION TABLE
+        # =================================================
         self.tt = {}
 
-        # dependency map
+        # =================================================
+        # MOVE CACHE
+        # =================================================
+        self.move_cache = {}
+
+        # =================================================
+        # GOAL DEPENDENCIES
+        # =================================================
         self.goal_deps = (
             build_goal_dependency_map(
                 self.board
@@ -78,6 +94,39 @@ class MCTS:
         return current
 
     # =====================================================
+    # GAME PHASE
+    # =====================================================
+    def game_phase(
+        self,
+        colour
+    ):
+
+        pins = self.pins_by_colour[colour]
+
+        goal = self.board.colour_opposites[
+            colour
+        ]
+
+        in_goal = sum(
+            1
+            for p in pins
+            if (
+                self.board.cells[
+                    p.axialindex
+                ].postype
+                == goal
+            )
+        )
+
+        if in_goal <= 2:
+            return "opening"
+
+        elif in_goal <= 7:
+            return "midgame"
+
+        return "endgame"
+
+    # =====================================================
     # CENTER SCORE
     # =====================================================
     def center_score(self, idx):
@@ -95,6 +144,143 @@ class MCTS:
         )
 
     # =====================================================
+    # CACHED MOVES
+    # =====================================================
+    def cached_moves(self, pin):
+
+        state_key = (
+            pin.axialindex,
+            tuple(
+                c.occupied
+                for c in self.board.cells
+            )
+        )
+
+        if state_key in self.move_cache:
+            return self.move_cache[state_key]
+
+        moves = pin.getPossibleMoves()
+
+        self.move_cache[state_key] = moves
+
+        return moves
+
+    # =====================================================
+    # DIRECTIONAL PROGRESS
+    # =====================================================
+    def directional_progress(
+        self,
+        from_idx,
+        to_idx,
+        colour
+    ):
+
+        old_d = dist_to_goal(
+            self.board,
+            from_idx,
+            colour
+        )
+
+        new_d = dist_to_goal(
+            self.board,
+            to_idx,
+            colour
+        )
+
+        return old_d - new_d
+
+    # =====================================================
+    # TARGET CENTER
+    # =====================================================
+    def goal_center(
+        self,
+        colour
+    ):
+
+        goal = self.board.colour_opposites[
+            colour
+        ]
+
+        cells = self.board.axial_of_colour(
+            goal
+        )
+
+        qsum = 0
+        rsum = 0
+
+        for idx in cells:
+
+            c = self.board.cells[idx]
+
+            qsum += c.q
+            rsum += c.r
+
+        n = len(cells)
+
+        return (
+            qsum / n,
+            rsum / n
+        )
+
+    # =====================================================
+    # DIRECTIONAL ALIGNMENT
+    # =====================================================
+    def directional_alignment(
+        self,
+        from_idx,
+        to_idx,
+        colour
+    ):
+
+        from_cell = self.board.cells[
+            from_idx
+        ]
+
+        to_cell = self.board.cells[
+            to_idx
+        ]
+
+        tq, tr = self.goal_center(
+            colour
+        )
+
+        # move vector
+        mv_q = to_cell.q - from_cell.q
+        mv_r = to_cell.r - from_cell.r
+
+        # target vector
+        tv_q = tq - from_cell.q
+        tv_r = tr - from_cell.r
+
+        move_mag = math.sqrt(
+            mv_q * mv_q +
+            mv_r * mv_r
+        )
+
+        target_mag = math.sqrt(
+            tv_q * tv_q +
+            tv_r * tv_r
+        )
+
+        if move_mag == 0:
+            return 0.0
+
+        if target_mag == 0:
+            return 1.0
+
+        dot = (
+            mv_q * tv_q +
+            mv_r * tv_r
+        )
+
+        cosine = dot / (
+            move_mag *
+            target_mag
+        )
+
+        return max(0.0, cosine)
+
+    # =====================================================
     # FUTURE JUMP POTENTIAL
     # =====================================================
     def jump_potential(self, pin):
@@ -103,20 +289,31 @@ class MCTS:
 
         reachable = set()
 
-        stack = [current]
+        stack = deque()
+
+        stack.append(
+            (current, 0)
+        )
+
+        best_depth = 0
 
         while stack:
 
-            idx = stack.pop(-1)
+            idx, depth = stack.pop()
 
             if idx in reachable:
                 continue
 
             reachable.add(idx)
 
+            best_depth = max(
+                best_depth,
+                depth
+            )
+
             pin.axialindex = idx
 
-            for nxt in pin.getPossibleMoves():
+            for nxt in self.cached_moves(pin):
 
                 dist = move_distance(
                     self.board,
@@ -125,11 +322,84 @@ class MCTS:
                 )
 
                 if dist >= 2:
-                    stack.append(nxt)
+
+                    stack.append(
+                        (
+                            nxt,
+                            depth + 1
+                        )
+                    )
 
         pin.axialindex = current
 
-        return len(reachable)
+        return (
+            len(reachable)
+            + best_depth * 3
+        )
+
+    # =====================================================
+    # ENDGAME SOLVER
+    # =====================================================
+    def endgame_move(
+        self,
+        colour
+    ):
+
+        pins = self.pins_by_colour[colour]
+
+        outside = []
+
+        goal = self.board.colour_opposites[
+            colour
+        ]
+
+        for pin in pins:
+
+            if (
+                self.board.cells[
+                    pin.axialindex
+                ].postype
+                != goal
+            ):
+                outside.append(pin)
+
+        if len(outside) > 3:
+            return None
+
+        best = None
+        best_score = -1e9
+
+        for pin in pins:
+
+            if pin_is_locked(
+                self.board,
+                pin,
+                pins,
+                colour,
+                self.goal_deps
+            ):
+                continue
+
+            for to_idx in self.cached_moves(pin):
+
+                score = (
+                    self.strategic_move_score(
+                        pin,
+                        to_idx,
+                        colour
+                    )
+                )
+
+                if score > best_score:
+
+                    best_score = score
+
+                    best = (
+                        pin.id,
+                        to_idx
+                    )
+
+        return best
 
     # =====================================================
     # MOVE SCORE
@@ -140,6 +410,10 @@ class MCTS:
         to_idx,
         colour,
     ):
+
+        phase = self.game_phase(
+            colour
+        )
 
         from_idx = pin.axialindex
 
@@ -163,8 +437,14 @@ class MCTS:
             to_idx
         )
 
+        alignment = self.directional_alignment(
+            from_idx,
+            to_idx,
+            colour
+        )
+
         mobility = len(
-            pin.getPossibleMoves()
+            self.cached_moves(pin)
         )
 
         center = self.center_score(
@@ -175,31 +455,66 @@ class MCTS:
             pin
         )
 
+        # =================================================
+        # DIRECTIONAL JUMP VALUE
+        # =================================================
+        effective_jump = (
+            jump_len *
+            max(0.2, progress) *
+            (0.5 + alignment)
+        )
+
+        # =================================================
+        # DYNAMIC WEIGHTS
+        # =================================================
+        if phase == "opening":
+
+            jump_w = 120
+            prog_w = 35
+            center_w = 25
+            future_w = 20
+
+        elif phase == "midgame":
+
+            jump_w = 170
+            prog_w = 55
+            center_w = 10
+            future_w = 30
+
+        else:
+
+            jump_w = 80
+            prog_w = 80
+            center_w = 0
+            future_w = 10
+
         score = 0.0
 
         # =================================================
-        # HUGE JUMP REWARD
+        # DYNAMIC SCORING
         # =================================================
-        score += jump_len * 140.0
+        score += effective_jump * jump_w
 
-        # forward progress
-        score += progress * 45.0
+        score += progress * prog_w
 
-        # mobility
         score += mobility * 8.0
 
-        # center control
-        score += center * 10.0
+        score += center * center_w
 
-        # future jump chains
-        score += jump_future * 15.0
+        score += jump_future * future_w
+
+        # =================================================
+        # BACKWARD PUNISHMENT
+        # =================================================
+        if progress < 0:
+            score += progress * 200
 
         goal = self.board.colour_opposites[
             colour
         ]
 
         # =================================================
-        # GOAL TRIANGLE LOGIC
+        # GOAL TRIANGLE
         # =================================================
         if (
             self.board.cells[to_idx].postype
@@ -211,10 +526,8 @@ class MCTS:
                 to_idx
             )
 
-            # deeper fill first
             score += depth * 120.0
 
-            # soft dependency ordering
             if not goal_fill_allowed(
                 self.board,
                 self.pins_by_colour[colour],
@@ -223,7 +536,6 @@ class MCTS:
                 self.goal_deps
             ):
 
-                # SOFT penalty only
                 score -= 200
 
         return score
@@ -242,13 +554,23 @@ class MCTS:
             pins_by_colour
         )
 
+        # =================================================
+        # ENDGAME SOLVER
+        # =================================================
+        endgame = self.endgame_move(
+            root_player
+        )
+
+        if endgame is not None:
+            return endgame
+
         remaining_pieces = sum(
             len(v)
             for v in pins_by_colour.values()
         )
 
         # =================================================
-        # ADAPTIVE TIME LIMIT
+        # ADAPTIVE TIME
         # =================================================
         if remaining_pieces > 40:
             self.time_limit = 0.20
@@ -323,11 +645,10 @@ class MCTS:
                     node.player
                 ]
 
+                candidate_moves = []
+
                 for pid, pin in enumerate(pins):
 
-                    # =========================================
-                    # SKIP LOCKED PINS
-                    # =========================================
                     if pin_is_locked(
                         self.board,
                         pin,
@@ -344,7 +665,7 @@ class MCTS:
                     )
 
                     for to_idx in (
-                        pin.getPossibleMoves()
+                        self.cached_moves(pin)
                     ):
 
                         new_d = dist_to_goal(
@@ -357,7 +678,7 @@ class MCTS:
                             old_d - new_d
                         )
 
-                        # prune terrible backward moves
+                        # strongly prune backwards
                         if progress < -1:
                             continue
 
@@ -370,7 +691,7 @@ class MCTS:
                             )
                         )
 
-                        node.untried_moves.append(
+                        candidate_moves.append(
                             (
                                 score,
                                 pid,
@@ -378,18 +699,16 @@ class MCTS:
                             )
                         )
 
-                random.shuffle(
-                    node.untried_moves
-                )
-
-                node.untried_moves.sort(
+                # =================================================
+                # BEAM SEARCH
+                # =================================================
+                candidate_moves.sort(
                     reverse=True,
                     key=lambda x: x[0]
                 )
 
-                # progressive widening
                 node.untried_moves = (
-                    node.untried_moves[:10]
+                    candidate_moves[:8]
                 )
 
             # =================================================
