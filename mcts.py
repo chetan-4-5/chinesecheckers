@@ -1,22 +1,38 @@
+# =========================================================
 # mcts.py
+# COMPLETE UPDATED FAST COMPETITION VERSION
+# =========================================================
 
 import time
 import random
 import math
 
 from mcts_node import MCTSNode
-from mcts_utils import apply_move, undo_move
+
+from mcts_utils import (
+    apply_move,
+    undo_move,
+    has_won,
+    hash_position
+)
+
 from rollout import (
     rollout,
     dist_to_goal,
     goal_depth,
     move_distance,
+    goal_blocking_penalty
 )
 
 
 class MCTS:
 
-    def __init__(self, board, colours, time_limit=3.0):
+    def __init__(
+        self,
+        board,
+        colours,
+        time_limit=0.4
+    ):
 
         self.board = board
         self.colours = colours
@@ -24,10 +40,16 @@ class MCTS:
 
         self.root = None
 
-    # ─────────────────────────────────────────────
-    # Next active player
-    # ─────────────────────────────────────────────
-    def next_player(self, current, pins_by_colour):
+        self.tt = {}
+
+    # =====================================================
+    # NEXT PLAYER
+    # =====================================================
+    def next_player(
+        self,
+        current,
+        pins_by_colour
+    ):
 
         i = self.colours.index(current)
 
@@ -40,21 +62,63 @@ class MCTS:
 
         return current
 
-    # ─────────────────────────────────────────────
-    # Rear-most priority
-    # Humans move stranded marbles first
-    # ─────────────────────────────────────────────
-    def rear_priority(self, idx, colour):
+    # =====================================================
+    # CENTER SCORE
+    # =====================================================
+    def center_score(self, idx):
 
-        return dist_to_goal(
-            self.board,
-            idx,
-            colour
+        cell = self.board.cells[idx]
+
+        q = cell.q
+        r = cell.r
+        s = -q - r
+
+        return -max(
+            abs(q),
+            abs(r),
+            abs(s)
         )
 
-    # ─────────────────────────────────────────────
-    # Human strategic move score
-    # ─────────────────────────────────────────────
+    # =====================================================
+    # JUMP POTENTIAL
+    # =====================================================
+    def jump_potential(self, pin):
+
+        current = pin.axialindex
+
+        reachable = set()
+
+        stack = [current]
+
+        while stack:
+
+            idx = stack.pop(-1)
+
+            if idx in reachable:
+                continue
+
+            reachable.add(idx)
+
+            pin.axialindex = idx
+
+            for nxt in pin.getPossibleMoves():
+
+                dist = move_distance(
+                    self.board,
+                    idx,
+                    nxt
+                )
+
+                if dist >= 2:
+                    stack.append(nxt)
+
+        pin.axialindex = current
+
+        return len(reachable)
+
+    # =====================================================
+    # MOVE SCORE
+    # =====================================================
     def strategic_move_score(
         self,
         pin,
@@ -84,46 +148,46 @@ class MCTS:
             to_idx
         )
 
-        rear_score = self.rear_priority(
-            from_idx,
-            colour
-        )
-
         mobility = len(pin.getPossibleMoves())
+
+        center = self.center_score(to_idx)
+
+        jump_future = self.jump_potential(pin)
 
         score = 0.0
 
-        # HUGE jump preference
-        score += jump_len * 50.0
-
-        # rear marbles first
-        score += rear_score * 15.0
+        # MASSIVE JUMP REWARD
+        score += jump_len * 140.0
 
         # forward progress
-        score += progress * 20.0
+        score += progress * 45.0
 
-        # mobility matters
-        score += mobility * 5.0
+        # mobility
+        score += mobility * 8.0
+
+        # center lanes
+        score += center * 10.0
+
+        # future chains
+        score += jump_future * 15.0
 
         goal = self.board.colour_opposites[colour]
 
-        # target triangle reward
         if self.board.cells[to_idx].postype == goal:
 
-            score += 80.0
-
-            score += (
-                goal_depth(
-                    self.board,
-                    to_idx
-                ) * 40.0
+            depth = goal_depth(
+                self.board,
+                to_idx
             )
+
+            # deep fill reward
+            score += depth * 120.0
 
         return score
 
-    # ─────────────────────────────────────────────
-    # Search
-    # ─────────────────────────────────────────────
+    # =====================================================
+    # SEARCH
+    # =====================================================
     def search(
         self,
         pins_by_colour,
@@ -131,9 +195,22 @@ class MCTS:
         legal_moves
     ):
 
-        max_iters = 4000
+        remaining_pieces = sum(
+            len(v)
+            for v in pins_by_colour.values()
+        )
 
-        iterations = 0
+        # FAST adaptive thinking
+        if remaining_pieces > 40:
+            self.time_limit = 0.20
+
+        elif remaining_pieces > 20:
+            self.time_limit = 0.45
+
+        else:
+            self.time_limit = 0.90
+
+        max_iters = 900
 
         root = MCTSNode(root_player)
 
@@ -141,9 +218,8 @@ class MCTS:
 
         end_time = time.time() + self.time_limit
 
-        # ─────────────────────────────────────────
-        # MAIN LOOP
-        # ─────────────────────────────────────────
+        iterations = 0
+
         while (
             time.time() < end_time
             and iterations < max_iters
@@ -155,38 +231,44 @@ class MCTS:
 
             history = []
 
-            # ─────────────────────────────────────
+            # =================================================
             # SELECTION
-            # ─────────────────────────────────────
+            # =================================================
             while (
                 node.children
                 and node.untried_moves == []
             ):
 
-                node = max(
-                    node.children.values(),
-                    key=lambda n: n.uct()
+                move, next_node = max(
+                    node.children.items(),
+                    key=lambda item: item[1].uct(1.8)
                 )
 
-            # ─────────────────────────────────────
+                pid, to_idx = move
+
+                pin = pins_by_colour[
+                    node.player
+                ][pid]
+
+                rec = apply_move(
+                    pin,
+                    to_idx
+                )
+
+                history.append(rec)
+
+                node = next_node
+
+            # =================================================
             # EXPANSION
-            # ─────────────────────────────────────
+            # =================================================
             if node.untried_moves is None:
 
                 node.untried_moves = []
 
                 pins = pins_by_colour[node.player]
 
-                remaining = sum(
-                    len(v)
-                    for v in pins_by_colour.values()
-                )
-
                 for pid, pin in enumerate(pins):
-
-                    cell = self.board.cells[
-                        pin.axialindex
-                    ]
 
                     old_d = dist_to_goal(
                         self.board,
@@ -196,37 +278,6 @@ class MCTS:
 
                     for to_idx in pin.getPossibleMoves():
 
-                        new_cell = self.board.cells[
-                            to_idx
-                        ]
-
-                        # ─────────────────
-                        # prevent useless
-                        # goal drifting
-                        # ─────────────────
-                        goal = self.board.colour_opposites[
-                            node.player
-                        ]
-
-                        if (
-                            cell.postype == goal
-                            and new_cell.postype == goal
-                        ):
-
-                            old_depth = goal_depth(
-                                self.board,
-                                pin.axialindex
-                            )
-
-                            new_depth = goal_depth(
-                                self.board,
-                                to_idx
-                            )
-
-                            # only deeper moves
-                            if new_depth <= old_depth:
-                                continue
-
                         new_d = dist_to_goal(
                             self.board,
                             to_idx,
@@ -235,37 +286,25 @@ class MCTS:
 
                         progress = old_d - new_d
 
-                        allow = False
+                        # prune terrible backward moves
+                        if progress < -1:
+                            continue
 
-                        # forward / neutral
-                        if progress >= 0:
-                            allow = True
-
-                        # controlled backward
-                        elif (
-                            remaining <= 10
-                            and progress >= -1
-                        ):
-                            allow = True
-
-                        if allow:
-
-                            score = (
-                                self.strategic_move_score(
-                                    pin,
-                                    to_idx,
-                                    node.player
-                                )
+                        score = (
+                            self.strategic_move_score(
+                                pin,
+                                to_idx,
+                                node.player
                             )
+                        )
 
-                            node.untried_moves.append(
-                                (
-                                    score,
-                                    pid,
-                                    pin,
-                                    to_idx
-                                )
+                        node.untried_moves.append(
+                            (
+                                score,
+                                pid,
+                                to_idx
                             )
+                        )
 
                 random.shuffle(node.untried_moves)
 
@@ -274,24 +313,25 @@ class MCTS:
                     key=lambda x: x[0]
                 )
 
-            # dead-end
-            if (
-                not node.untried_moves
-                and not node.children
-            ):
-                break
+                # progressive widening
+                node.untried_moves = (
+                    node.untried_moves[:10]
+                )
 
-            # ─────────────────────────────────────
+            # =================================================
             # EXPAND
-            # ─────────────────────────────────────
+            # =================================================
             if node.untried_moves:
 
                 (
                     _,
                     pid,
-                    pin,
                     to_idx
                 ) = node.untried_moves.pop(0)
+
+                pin = pins_by_colour[
+                    node.player
+                ][pid]
 
                 rec = apply_move(
                     pin,
@@ -316,25 +356,37 @@ class MCTS:
 
                 node = child
 
-            # ─────────────────────────────────────
-            # SIMULATION
-            # ─────────────────────────────────────
-            result = rollout(
-                self.board,
-                pins_by_colour,
-                root_player,
-                self.colours
+            # =================================================
+            # TRANSPOSITION TABLE
+            # =================================================
+            state_hash = hash_position(
+                pins_by_colour
             )
 
-            # ─────────────────────────────────────
+            if state_hash in self.tt:
+
+                result = self.tt[state_hash]
+
+            else:
+
+                result = rollout(
+                    self.board,
+                    pins_by_colour,
+                    root_player,
+                    self.colours
+                )
+
+                self.tt[state_hash] = result
+
+            # =================================================
             # UNDO
-            # ─────────────────────────────────────
+            # =================================================
             for rec in reversed(history):
                 undo_move(rec)
 
-            # ─────────────────────────────────────
+            # =================================================
             # BACKPROP
-            # ─────────────────────────────────────
+            # =================================================
             while node:
 
                 node.visits += 1
@@ -343,9 +395,9 @@ class MCTS:
 
                 node = node.parent
 
-        # ─────────────────────────────────────────
-        # FINAL MOVE
-        # ─────────────────────────────────────────
+        # =====================================================
+        # FALLBACK
+        # =====================================================
         if not root.children:
 
             for pid_str, targets in legal_moves.items():
@@ -358,6 +410,9 @@ class MCTS:
 
             return None, None
 
+        # =====================================================
+        # BEST MOVE
+        # =====================================================
         (
             pid,
             to_idx
@@ -365,22 +420,5 @@ class MCTS:
             root.children.items(),
             key=lambda item: item[1].visits
         )
-
-        # safety validation
-        if (
-            str(pid) not in legal_moves
-            or to_idx not in legal_moves[str(pid)]
-        ):
-
-            for pid_str, targets in legal_moves.items():
-
-                if targets:
-                    return (
-                        int(pid_str),
-                        targets[0]
-                    )
-
-        self.root = best_child
-        self.root.parent = None
 
         return pid, to_idx
