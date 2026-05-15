@@ -1,0 +1,195 @@
+[2026-05-15 23:07:57] GAME CREATED
+[2026-05-15 23:08:01] PLAYER JOINED: chetan as red
+[2026-05-15 23:08:07] PLAYER JOINED: asha as blue
+[2026-05-15 23:08:10] GAME STARTED — turn order: ['red', 'blue']
+[2026-05-15 23:08:11] MOVE chetan (red): 112→104 [0.2ms]
+[2026-05-15 23:08:12] MOVE asha (blue): 9→17 [0.2ms]
+[2026-05-15 23:08:14] MOVE chetan (red): 116→103 [0.3ms]
+[2026-05-15 23:08:15] MOVE asha (blue): 2→29 [0.2ms]
+[2026-05-15 23:08:16] MOVE chetan (red): 114→92 [0.3ms]
+[2026-05-15 23:08:17] MOVE asha (blue): 5→18 [0.3ms]
+[2026-05-15 23:08:18] MOVE chetan (red): 119→90 [0.3ms]
+[2026-05-15 23:08:19] MOVE asha (blue): 3→14 [0.3ms]
+[2026-05-15 23:08:20] MOVE chetan (red): 113→89 [0.6ms]
+[2026-05-15 23:08:21] MOVE asha (blue): 4→13 [0.2ms]
+[2026-05-15 23:08:23] MOVE chetan (red): 115→79 [0.3ms]
+[2026-05-15 23:08:24] MOVE asha (blue): 18→41 [0.2ms]
+[2026-05-15 23:08:25] MOVE chetan (red): 89→68 [0.5ms]
+[2026-05-15 23:08:26] MOVE asha (blue): 0→16 [0.2ms]
+[2026-05-15 23:08:27] MOVE chetan (red): 103→80 [0.3ms]
+[2026-05-15 23:08:28] MOVE asha (blue): 17→40 [0.7ms]
+[2026-05-15 23:08:29] MOVE chetan (red): 92→69 [0.4ms]
+[2026-05-15 23:08:30] MOVE asha (blue): 6→26 [0.3ms]
+[2026-05-15 23:08:32] MOVE chetan (red): 120→102 [0.4ms]
+[2026-05-15 23:08:33] MOVE asha (blue): 40→42 [0.3ms]
+[2026-05-15 23:08:34] MOVE chetan (red): 111→91 [0.3ms]
+[2026-05-15 23:08:35] MOVE asha (blue): 8→51 [0.4ms]
+[2026-05-15 23:08:36] MOVE chetan (red): 68→70 [0.2ms]
+[2026-05-15 23:08:37] MOVE asha (blue): 13→61 [0.5ms]
+[2026-05-15 23:08:38] MOVE chetan (red): 70→31 [0.2ms]
+[2026-05-15 23:08:39] MOVE asha (blue): 26→53 [0.2ms]
+[2026-05-15 23:08:40] MOVE chetan (red): 79→18 [0.2ms]
+[2026-05-15 23:08:41] MOVE asha (blue): 29→70 [0.3ms]
+[2026-05-15 23:08:43] MOVE chetan (red): 102→43 [0.3ms]
+[2026-05-15 23:08:44] MOVE asha (blue): 41→102 [0.3ms]
+[2026-05-15 23:08:45] MOVE chetan (red): 18→9 [0.2ms]
+[2026-05-15 23:08:46] MOVE asha (blue): 51→60 [0.3ms]
+[2026-05-15 23:08:47] MOVE chetan (red): 104→81 [0.4ms]
+[2026-05-15 23:08:48] MOVE asha (blue): 61→59 [0.3ms]
+[2026-05-15 23:08:49] MOVE chetan (red): 80→61 [0.4ms]
+[2026-05-15 23:08:50] MOVE asha (blue): 59→78 [0.4ms]
+[2026-05-15 23:08:51] MOVE chetan (red): 69→51 [0.3ms]
+[2026-05-15 23:08:53] MOVE asha (blue): 60→62 [0.3ms]
+[2026-05-15 23:08:54] MOVE chetan (red): 90→71 [0.3ms]
+[2026-05-15 23:08:55] MOVE asha (blue): 70→72 [0.2ms]
+[2026-05-15 23:08:56] MOVE chetan (red): 61→40 [0.3ms]
+[2026-05-15 23:08:57] MOVE asha (blue): 102→111 [0.9ms]
+[2026-05-15 23:08:58] MOVE chetan (red): 51→8 [0.3ms]
+[2026-05-15 23:08:59] MOVE asha (blue): 72→93 [0.2ms]
+[2026-05-15 23:09:00] MOVE chetan (red): 71→67 [0.3ms]
+[2026-05-15 23:09:01] MOVE asha (blue): 42→63 [0.3ms]
+[2026-05-15 23:09:03] MOVE chetan (red): 67→57 [0.4ms]
+[2026-05-15 23:09:04] MOVE asha (blue): 53→71 [0.4ms]
+[2026-05-15 23:09:05] MOVE chetan (red): 81→70 [0.2ms]
+[2026-05-15 23:09:06] MOVE asha (blue): 63→105 [0.4ms]
+[2026-05-15 23:09:07] MOVE chetan (red): 70→61 [0.3ms]
+[2026-05-15 23:09:08] MOVE asha (blue): 62→79 [0.3ms]
+[2026-05-15 23:09:09] MOVE chetan (red): 91→80 [0.3ms]
+[2026-05-15 23:09:10] MOVE asha (blue): 79→81 [0.4ms]
+[2026-05-15 23:09:11] MOVE chetan (red): 43→18 [0.4ms]
+[2026-05-15 23:09:13] MOVE asha (blue): 7→50 [0.2ms]
+[2026-05-15 23:09:14] MOVE chetan (red): 61→51 [0.2ms]
+[2026-05-15 23:09:15] MOVE asha (blue): 71→114 [0.3ms]
+[2026-05-15 23:09:16] MOVE chetan (red): 8→4 [0.4ms]
+[2026-05-15 23:09:17] MOVE asha (blue): 81→104 [0.2ms]
+[2026-05-15 23:09:18] MOVE chetan (red): 117→77 [0.3ms]
+[2026-05-15 23:09:19] MOVE asha (blue): 1→28 [0.3ms]
+[2026-05-15 23:09:20] MOVE chetan (red): 9→5 [0.3ms]
+[2026-05-15 23:09:21] MOVE asha (blue): 104→117 [0.4ms]
+[2026-05-15 23:09:22] MOVE chetan (red): 31→7 [0.2ms]
+[2026-05-15 23:09:24] MOVE asha (blue): 16→60 [0.5ms]
+[2026-05-15 23:09:25] MOVE chetan (red): 4→1 [0.2ms]
+[2026-05-15 23:09:26] MOVE asha (blue): 111→115 [0.3ms]
+[2026-05-15 23:09:27] MOVE chetan (red): 40→13 [0.5ms]
+[2026-05-15 23:09:28] MOVE asha (blue): 115→120 [0.3ms]
+[2026-05-15 23:09:29] MOVE chetan (red): 1→0 [0.3ms]
+[2026-05-15 23:09:30] MOVE asha (blue): 114→119 [0.5ms]
+[2026-05-15 23:09:31] MOVE chetan (red): 18→9 [0.2ms]
+[2026-05-15 23:09:32] MOVE asha (blue): 117→116 [0.3ms]
+[2026-05-15 23:09:34] MOVE chetan (red): 5→2 [0.3ms]
+[2026-05-15 23:09:35] MOVE asha (blue): 50→70 [0.4ms]
+[2026-05-15 23:09:36] MOVE chetan (red): 77→81 [0.3ms]
+[2026-05-15 23:09:37] MOVE asha (blue): 93→113 [0.3ms]
+[2026-05-15 23:09:38] MOVE chetan (red): 13→4 [0.3ms]
+[2026-05-15 23:09:39] MOVE asha (blue): 113→112 [0.2ms]
+[2026-05-15 23:09:40] MOVE chetan (red): 80→40 [0.3ms]
+[2026-05-15 23:09:41] MOVE asha (blue): 70→111 [0.3ms]
+[2026-05-15 23:09:42] MOVE chetan (red): 118→27 [0.3ms]
+[2026-05-15 23:09:44] MOVE asha (blue): 111→115 [0.2ms]
+[2026-05-15 23:09:45] MOVE chetan (red): 40→13 [0.3ms]
+[2026-05-15 23:09:46] MOVE asha (blue): 105→114 [0.4ms]
+[2026-05-15 23:09:47] MOVE chetan (red): 9→5 [0.2ms]
+[2026-05-15 23:09:48] MOVE asha (blue): 114→117 [0.3ms]
+[2026-05-15 23:09:49] MOVE chetan (red): 5→8 [0.3ms]
+[2026-05-15 23:09:50] MOVE asha (blue): 115→118 [0.3ms]
+[2026-05-15 23:09:51] MOVE chetan (red): 8→9 [0.3ms]
+[2026-05-15 23:09:52] MOVE asha (blue): 14→26 [0.4ms]
+[2026-05-15 23:09:54] MOVE chetan (red): 4→1 [0.2ms]
+[2026-05-15 23:09:55] MOVE asha (blue): 60→70 [0.3ms]
+[2026-05-15 23:09:56] MOVE chetan (red): 13→40 [0.3ms]
+[2026-05-15 23:09:57] MOVE asha (blue): 70→93 [0.4ms]
+[2026-05-15 23:09:58] MOVE chetan (red): 40→15 [0.2ms]
+[2026-05-15 23:09:59] MOVE asha (blue): 93→105 [0.3ms]
+[2026-05-15 23:10:00] MOVE chetan (red): 7→4 [0.2ms]
+[2026-05-15 23:10:01] MOVE asha (blue): 28→39 [0.3ms]
+[2026-05-15 23:10:02] MOVE chetan (red): 9→8 [0.2ms]
+[2026-05-15 23:10:03] MOVE asha (blue): 26→49 [0.4ms]
+[2026-05-15 23:10:04] MOVE chetan (red): 8→5 [0.7ms]
+[2026-05-15 23:10:06] MOVE asha (blue): 39→58 [0.4ms]
+[2026-05-15 23:10:07] MOVE chetan (red): 15→6 [0.3ms]
+[2026-05-15 23:10:08] MOVE asha (blue): 112→111 [0.4ms]
+[2026-05-15 23:10:09] MOVE chetan (red): 57→15 [0.3ms]
+[2026-05-15 23:10:10] MOVE asha (blue): 105→113 [0.3ms]
+[2026-05-15 23:10:11] MOVE chetan (red): 6→3 [0.5ms]
+[2026-05-15 23:10:12] MOVE asha (blue): 49→90 [0.7ms]
+[2026-05-15 23:10:13] MOVE chetan (red): 27→28 [1.1ms]
+[2026-05-15 23:10:14] MOVE asha (blue): 58→67 [0.5ms]
+[2026-05-15 23:10:15] MOVE chetan (red): 81→70 [0.3ms]
+[2026-05-15 23:10:16] MOVE asha (blue): 67→77 [0.3ms]
+[2026-05-15 23:10:17] MOVE chetan (red): 70→60 [0.3ms]
+[2026-05-15 23:10:18] MOVE asha (blue): 78→103 [0.6ms]
+[2026-05-15 23:10:19] MOVE chetan (red): 60→41 [0.4ms]
+[2026-05-15 23:10:20] MOVE asha (blue): 90→114 [0.3ms]
+[2026-05-15 23:10:22] MOVE chetan (red): 51→30 [0.2ms]
+[2026-05-15 23:10:23] MOVE asha (blue): 103→112 [0.3ms]
+[2026-05-15 23:10:24] MOVE chetan (red): 41→18 [0.3ms]
+[2026-05-15 23:10:24] MOVE asha (blue): 111→115 [0.3ms]
+[2026-05-15 23:10:25] MOVE chetan (red): 28→6 [0.3ms]
+[2026-05-15 23:10:26] MOVE asha (blue): 77→89 [1.0ms]
+[2026-05-15 23:10:26] MOVE chetan (red): 18→9 [0.3ms]
+[2026-05-15 23:10:26] MOVE asha (blue): 89→102 [0.3ms]
+[2026-05-15 23:10:27] MOVE chetan (red): 15→7 [0.2ms]
+[2026-05-15 23:10:27] MOVE asha (blue): 102→111 [0.5ms]
+[2026-05-15 23:10:27] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:10:27] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:10:27] WIN: asha (blue)
+[2026-05-15 23:16:42] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:42] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:42] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:43] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:43] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:43] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:43] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:43] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:43] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:44] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:44] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:44] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:44] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:44] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:44] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:45] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:45] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:45] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:46] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:46] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:46] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:46] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:46] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:46] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:47] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:47] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:47] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:47] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:47] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:47] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:48] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:48] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:48] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:48] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:48] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:48] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:49] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:49] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:49] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:49] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:49] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:49] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:50] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:50] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:50] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:50] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:50] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:50] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:51] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:51] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:51] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:52] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:52] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:52] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:52] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:52] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:52] GAME TIME LIMIT REACHED.
+[2026-05-15 23:16:53] SCORE chetan (red): Final=1129.7, Time=31.1, Moves(64)=0.6, Pins(9)=900.0, Dist=198.0
+[2026-05-15 23:16:53] SCORE asha (blue): Final=1233.3, Time=32.8, Moves(64)=0.6, Pins(10)=1000.0, Dist=200.0
+[2026-05-15 23:16:53] GAME TIME LIMIT REACHED.

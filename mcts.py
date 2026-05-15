@@ -1,6 +1,6 @@
 # =========================================================
 # mcts.py
-# COMPLETE UPDATED FAST COMPETITION VERSION
+# COMPLETE UPDATED VERSION
 # =========================================================
 
 import time
@@ -21,7 +21,10 @@ from rollout import (
     dist_to_goal,
     goal_depth,
     move_distance,
-    goal_blocking_penalty
+    build_goal_dependency_map,
+    goal_fill_allowed,
+    goal_blocking_penalty,
+    pin_is_locked
 )
 
 
@@ -40,7 +43,17 @@ class MCTS:
 
         self.root = None
 
+        # transposition table
         self.tt = {}
+
+        # dependency map
+        self.goal_deps = (
+            build_goal_dependency_map(
+                self.board
+            )
+        )
+
+        self.pins_by_colour = None
 
     # =====================================================
     # NEXT PLAYER
@@ -57,7 +70,9 @@ class MCTS:
 
             i = (i + 1) % len(self.colours)
 
-            if pins_by_colour[self.colours[i]]:
+            if pins_by_colour[
+                self.colours[i]
+            ]:
                 return self.colours[i]
 
         return current
@@ -80,7 +95,7 @@ class MCTS:
         )
 
     # =====================================================
-    # JUMP POTENTIAL
+    # FUTURE JUMP POTENTIAL
     # =====================================================
     def jump_potential(self, pin):
 
@@ -148,15 +163,23 @@ class MCTS:
             to_idx
         )
 
-        mobility = len(pin.getPossibleMoves())
+        mobility = len(
+            pin.getPossibleMoves()
+        )
 
-        center = self.center_score(to_idx)
+        center = self.center_score(
+            to_idx
+        )
 
-        jump_future = self.jump_potential(pin)
+        jump_future = self.jump_potential(
+            pin
+        )
 
         score = 0.0
 
-        # MASSIVE JUMP REWARD
+        # =================================================
+        # HUGE JUMP REWARD
+        # =================================================
         score += jump_len * 140.0
 
         # forward progress
@@ -165,23 +188,43 @@ class MCTS:
         # mobility
         score += mobility * 8.0
 
-        # center lanes
+        # center control
         score += center * 10.0
 
-        # future chains
+        # future jump chains
         score += jump_future * 15.0
 
-        goal = self.board.colour_opposites[colour]
+        goal = self.board.colour_opposites[
+            colour
+        ]
 
-        if self.board.cells[to_idx].postype == goal:
+        # =================================================
+        # GOAL TRIANGLE LOGIC
+        # =================================================
+        if (
+            self.board.cells[to_idx].postype
+            == goal
+        ):
 
             depth = goal_depth(
                 self.board,
                 to_idx
             )
 
-            # deep fill reward
+            # deeper fill first
             score += depth * 120.0
+
+            # soft dependency ordering
+            if not goal_fill_allowed(
+                self.board,
+                self.pins_by_colour[colour],
+                colour,
+                to_idx,
+                self.goal_deps
+            ):
+
+                # SOFT penalty only
+                score -= 200
 
         return score
 
@@ -195,12 +238,18 @@ class MCTS:
         legal_moves
     ):
 
+        self.pins_by_colour = (
+            pins_by_colour
+        )
+
         remaining_pieces = sum(
             len(v)
             for v in pins_by_colour.values()
         )
 
-        # FAST adaptive thinking
+        # =================================================
+        # ADAPTIVE TIME LIMIT
+        # =================================================
         if remaining_pieces > 40:
             self.time_limit = 0.20
 
@@ -216,7 +265,10 @@ class MCTS:
 
         self.root = root
 
-        end_time = time.time() + self.time_limit
+        end_time = (
+            time.time()
+            + self.time_limit
+        )
 
         iterations = 0
 
@@ -241,7 +293,8 @@ class MCTS:
 
                 move, next_node = max(
                     node.children.items(),
-                    key=lambda item: item[1].uct(1.8)
+                    key=lambda item:
+                    item[1].uct(1.8)
                 )
 
                 pid, to_idx = move
@@ -266,9 +319,23 @@ class MCTS:
 
                 node.untried_moves = []
 
-                pins = pins_by_colour[node.player]
+                pins = pins_by_colour[
+                    node.player
+                ]
 
                 for pid, pin in enumerate(pins):
+
+                    # =========================================
+                    # SKIP LOCKED PINS
+                    # =========================================
+                    if pin_is_locked(
+                        self.board,
+                        pin,
+                        pins,
+                        node.player,
+                        self.goal_deps
+                    ):
+                        continue
 
                     old_d = dist_to_goal(
                         self.board,
@@ -276,7 +343,9 @@ class MCTS:
                         node.player
                     )
 
-                    for to_idx in pin.getPossibleMoves():
+                    for to_idx in (
+                        pin.getPossibleMoves()
+                    ):
 
                         new_d = dist_to_goal(
                             self.board,
@@ -284,14 +353,17 @@ class MCTS:
                             node.player
                         )
 
-                        progress = old_d - new_d
+                        progress = (
+                            old_d - new_d
+                        )
 
                         # prune terrible backward moves
                         if progress < -1:
                             continue
 
                         score = (
-                            self.strategic_move_score(
+                            self
+                            .strategic_move_score(
                                 pin,
                                 to_idx,
                                 node.player
@@ -306,7 +378,9 @@ class MCTS:
                             )
                         )
 
-                random.shuffle(node.untried_moves)
+                random.shuffle(
+                    node.untried_moves
+                )
 
                 node.untried_moves.sort(
                     reverse=True,
@@ -365,7 +439,9 @@ class MCTS:
 
             if state_hash in self.tt:
 
-                result = self.tt[state_hash]
+                result = self.tt[
+                    state_hash
+                ]
 
             else:
 
@@ -376,7 +452,9 @@ class MCTS:
                     self.colours
                 )
 
-                self.tt[state_hash] = result
+                self.tt[
+                    state_hash
+                ] = result
 
             # =================================================
             # UNDO
@@ -400,9 +478,13 @@ class MCTS:
         # =====================================================
         if not root.children:
 
-            for pid_str, targets in legal_moves.items():
+            for (
+                pid_str,
+                targets
+            ) in legal_moves.items():
 
                 if targets:
+
                     return (
                         int(pid_str),
                         targets[0]
@@ -418,7 +500,8 @@ class MCTS:
             to_idx
         ), best_child = max(
             root.children.items(),
-            key=lambda item: item[1].visits
+            key=lambda item:
+            item[1].visits
         )
 
         return pid, to_idx
