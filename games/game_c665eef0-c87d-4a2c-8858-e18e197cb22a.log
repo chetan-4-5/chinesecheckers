@@ -1,0 +1,47 @@
+[2026-05-06 14:19:48] GAME CREATED
+[2026-05-06 14:19:53] PLAYER JOINED: chetan as lawn green
+[2026-05-06 14:20:00] PLAYER JOINED: asha as gray0
+[2026-05-06 14:20:04] GAME STARTED — turn order: ['lawn green', 'gray0']
+[2026-05-06 14:20:04] MOVE chetan (lawn green): 20→18 [0.2ms]
+[2026-05-06 14:20:14] SCORE chetan (lawn green): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 14:20:14] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:20:14] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 1. Turn skipped.
+[2026-05-06 14:20:14] MOVE chetan (lawn green): 22→43 [0.1ms]
+[2026-05-06 14:20:24] SCORE chetan (lawn green): Final=196.0, Time=100.0, Moves(2)=0.0, Pins(0)=0.0, Dist=96.0
+[2026-05-06 14:20:24] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:20:24] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 2. Turn skipped.
+[2026-05-06 14:20:24] MOVE chetan (lawn green): 19→17 [0.1ms]
+[2026-05-06 14:20:34] SCORE chetan (lawn green): Final=198.0, Time=100.0, Moves(3)=0.0, Pins(0)=0.0, Dist=98.0
+[2026-05-06 14:20:34] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:20:34] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 3. Turn skipped.
+[2026-05-06 14:20:34] MOVE chetan (lawn green): 33→29 [0.1ms]
+[2026-05-06 14:20:44] SCORE chetan (lawn green): Final=201.9, Time=99.9, Moves(4)=0.0, Pins(0)=0.0, Dist=102.0
+[2026-05-06 14:20:44] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:20:44] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 4. Turn skipped.
+[2026-05-06 14:20:44] MOVE chetan (lawn green): 17→40 [0.1ms]
+[2026-05-06 14:20:55] SCORE chetan (lawn green): Final=203.9, Time=99.9, Moves(5)=0.0, Pins(0)=0.0, Dist=104.0
+[2026-05-06 14:20:55] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:20:55] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 5. Turn skipped.
+[2026-05-06 14:20:55] MOVE chetan (lawn green): 29→50 [0.1ms]
+[2026-05-06 14:21:05] SCORE chetan (lawn green): Final=205.9, Time=99.9, Moves(6)=0.0, Pins(0)=0.0, Dist=106.0
+[2026-05-06 14:21:05] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:05] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 6. Turn skipped.
+[2026-05-06 14:21:05] MOVE chetan (lawn green): 40→59 [0.1ms]
+[2026-05-06 14:21:15] SCORE chetan (lawn green): Final=207.9, Time=99.9, Moves(7)=0.0, Pins(0)=0.0, Dist=108.0
+[2026-05-06 14:21:15] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:15] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 7. Turn skipped.
+[2026-05-06 14:21:15] MOVE chetan (lawn green): 50→68 [0.1ms]
+[2026-05-06 14:21:25] SCORE chetan (lawn green): Final=209.8, Time=99.8, Moves(8)=0.0, Pins(0)=0.0, Dist=110.0
+[2026-05-06 14:21:25] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:25] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 8. Turn skipped.
+[2026-05-06 14:21:25] MOVE chetan (lawn green): 59→78 [0.1ms]
+[2026-05-06 14:21:35] SCORE chetan (lawn green): Final=211.8, Time=99.8, Moves(9)=0.0, Pins(0)=0.0, Dist=112.0
+[2026-05-06 14:21:35] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:35] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 9. Turn skipped.
+[2026-05-06 14:21:35] MOVE chetan (lawn green): 68→89 [0.2ms]
+[2026-05-06 14:21:44] SCORE chetan (lawn green): Final=213.7, Time=99.7, Moves(10)=0.0, Pins(0)=0.0, Dist=114.0
+[2026-05-06 14:21:44] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:44] GAME TIME LIMIT REACHED.
+[2026-05-06 14:21:44] SCORE chetan (lawn green): Final=213.7, Time=99.7, Moves(10)=0.0, Pins(0)=0.0, Dist=114.0
+[2026-05-06 14:21:44] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 14:21:44] GAME TIME LIMIT REACHED.

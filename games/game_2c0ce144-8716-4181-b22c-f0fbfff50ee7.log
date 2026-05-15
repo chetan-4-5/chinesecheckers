@@ -1,0 +1,36 @@
+[2026-05-06 16:01:11] GAME CREATED
+[2026-05-06 16:01:18] PLAYER JOINED: chetan as yellow
+[2026-05-06 16:01:24] PLAYER JOINED: asha as purple
+[2026-05-06 16:01:27] GAME STARTED — turn order: ['yellow', 'purple']
+[2026-05-06 16:01:27] MOVE chetan (yellow): 12→14 [0.1ms]
+[2026-05-06 16:01:28] MOVE asha (purple): 74→64 [0.1ms]
+[2026-05-06 16:01:38] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:01:38] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:01:38] TURN TIMEOUT: Player with colour yellow exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:01:50] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:01:50] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:01:50] TURN TIMEOUT: Player with colour purple exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:00] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:00] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:00] TURN TIMEOUT: Player with colour yellow exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:10] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:10] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:10] TURN TIMEOUT: Player with colour purple exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:21] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:21] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:21] TURN TIMEOUT: Player with colour yellow exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:31] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:31] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:31] TURN TIMEOUT: Player with colour purple exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:41] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:41] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:41] TURN TIMEOUT: Player with colour yellow exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:02:52] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:02:52] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:02:52] TURN TIMEOUT: Player with colour purple exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:03:02] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:03:02] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:03:02] TURN TIMEOUT: Player with colour yellow exceeded 10s at move 2. Turn skipped.
+[2026-05-06 16:03:07] SCORE chetan (yellow): Final=192.0, Time=100.0, Moves(1)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-06 16:03:07] SCORE asha (purple): Final=190.6, Time=99.6, Moves(1)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-06 16:03:07] GAME TIME LIMIT REACHED.

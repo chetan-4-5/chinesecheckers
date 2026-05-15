@@ -1,0 +1,110 @@
+[2026-05-08 19:27:40] GAME CREATED
+[2026-05-08 19:27:45] PLAYER JOINED: chetan as lawn green
+[2026-05-08 19:27:50] PLAYER JOINED: asha as gray0
+[2026-05-08 19:27:53] GAME STARTED — turn order: ['lawn green', 'gray0']
+[2026-05-08 19:27:53] MOVE chetan (lawn green): 55→64 [0.2ms]
+[2026-05-08 19:27:54] MOVE asha (gray0): 101→102 [0.1ms]
+[2026-05-08 19:27:55] MOVE chetan (lawn green): 64→74 [0.1ms]
+[2026-05-08 19:27:56] MOVE asha (gray0): 102→90 [0.1ms]
+[2026-05-08 19:27:56] MOVE chetan (lawn green): 74→84 [0.3ms]
+[2026-05-08 19:27:57] MOVE asha (gray0): 90→103 [0.2ms]
+[2026-05-08 19:27:58] MOVE chetan (lawn green): 84→96 [0.1ms]
+[2026-05-08 19:27:59] MOVE asha (gray0): 103→102 [0.1ms]
+[2026-05-08 19:27:59] MOVE chetan (lawn green): 20→18 [0.2ms]
+[2026-05-08 19:28:00] MOVE asha (gray0): 102→111 [0.1ms]
+[2026-05-08 19:28:01] MOVE chetan (lawn green): 96→109 [0.2ms]
+[2026-05-08 19:28:02] MOVE asha (gray0): 111→115 [0.1ms]
+[2026-05-08 19:28:03] MOVE chetan (lawn green): 44→54 [0.1ms]
+[2026-05-08 19:28:03] MOVE asha (gray0): 115→118 [0.2ms]
+[2026-05-08 19:28:04] MOVE chetan (lawn green): 109→108 [0.1ms]
+[2026-05-08 19:28:05] MOVE asha (gray0): 118→120 [0.1ms]
+[2026-05-08 19:28:06] MOVE chetan (lawn green): 108→96 [0.1ms]
+[2026-05-08 19:28:06] MOVE asha (gray0): 120→119 [0.1ms]
+[2026-05-08 19:28:07] MOVE chetan (lawn green): 96→109 [0.2ms]
+[2026-05-08 19:28:08] MOVE asha (gray0): 119→118 [0.2ms]
+[2026-05-08 19:28:18] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:28:18] SCORE asha (gray0): Final=183.6, Time=92.6, Moves(10)=0.0, Pins(0)=0.0, Dist=91.0
+[2026-05-08 19:28:18] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 20. Turn skipped.
+[2026-05-08 19:28:19] MOVE asha (gray0): 65→56 [0.1ms]
+[2026-05-08 19:28:29] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:28:29] SCORE asha (gray0): Final=184.0, Time=92.0, Moves(11)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:28:29] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 21. Turn skipped.
+[2026-05-08 19:28:29] MOVE asha (gray0): 118→120 [0.2ms]
+[2026-05-08 19:28:40] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:28:40] SCORE asha (gray0): Final=183.4, Time=91.4, Moves(12)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:28:40] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 22. Turn skipped.
+[2026-05-08 19:28:40] MOVE asha (gray0): 56→46 [0.1ms]
+[2026-05-08 19:28:50] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:28:50] SCORE asha (gray0): Final=182.8, Time=90.8, Moves(13)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:28:50] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 23. Turn skipped.
+[2026-05-08 19:28:51] MOVE asha (gray0): 120→119 [0.1ms]
+[2026-05-08 19:29:01] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:01] SCORE asha (gray0): Final=183.2, Time=90.2, Moves(14)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:29:01] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 24. Turn skipped.
+[2026-05-08 19:29:02] MOVE asha (gray0): 46→35 [0.1ms]
+[2026-05-08 19:29:12] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:12] SCORE asha (gray0): Final=182.6, Time=89.6, Moves(15)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:29:12] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 25. Turn skipped.
+[2026-05-08 19:29:12] MOVE asha (gray0): 119→120 [0.3ms]
+[2026-05-08 19:29:22] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:22] SCORE asha (gray0): Final=180.8, Time=88.8, Moves(16)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:29:22] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 26. Turn skipped.
+[2026-05-08 19:29:23] MOVE asha (gray0): 35→23 [0.1ms]
+[2026-05-08 19:29:33] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:33] SCORE asha (gray0): Final=180.2, Time=88.2, Moves(17)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:29:33] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 27. Turn skipped.
+[2026-05-08 19:29:34] MOVE asha (gray0): 120→119 [0.1ms]
+[2026-05-08 19:29:44] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:44] SCORE asha (gray0): Final=180.6, Time=87.6, Moves(18)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:29:44] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 28. Turn skipped.
+[2026-05-08 19:29:45] MOVE asha (gray0): 23→10 [0.1ms]
+[2026-05-08 19:29:55] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:29:55] SCORE asha (gray0): Final=180.0, Time=87.0, Moves(19)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:29:55] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 29. Turn skipped.
+[2026-05-08 19:29:56] MOVE asha (gray0): 119→120 [0.1ms]
+[2026-05-08 19:30:06] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:06] SCORE asha (gray0): Final=178.4, Time=86.4, Moves(20)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:30:06] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 30. Turn skipped.
+[2026-05-08 19:30:06] MOVE asha (gray0): 10→11 [2.9ms]
+[2026-05-08 19:30:16] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:16] SCORE asha (gray0): Final=178.7, Time=85.7, Moves(21)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:30:16] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 31. Turn skipped.
+[2026-05-08 19:30:17] MOVE asha (gray0): 11→10 [0.1ms]
+[2026-05-08 19:30:27] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:27] SCORE asha (gray0): Final=177.1, Time=85.1, Moves(22)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:30:27] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 32. Turn skipped.
+[2026-05-08 19:30:28] MOVE asha (gray0): 10→11 [0.1ms]
+[2026-05-08 19:30:38] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:38] SCORE asha (gray0): Final=177.4, Time=84.4, Moves(23)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:30:38] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 33. Turn skipped.
+[2026-05-08 19:30:38] MOVE asha (gray0): 11→10 [0.1ms]
+[2026-05-08 19:30:49] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:49] SCORE asha (gray0): Final=175.8, Time=83.8, Moves(24)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:30:49] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 34. Turn skipped.
+[2026-05-08 19:30:49] MOVE asha (gray0): 10→11 [0.2ms]
+[2026-05-08 19:30:59] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:30:59] SCORE asha (gray0): Final=176.1, Time=83.1, Moves(25)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:30:59] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 35. Turn skipped.
+[2026-05-08 19:31:00] MOVE asha (gray0): 11→10 [0.2ms]
+[2026-05-08 19:31:10] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:31:10] SCORE asha (gray0): Final=174.5, Time=82.5, Moves(26)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:31:10] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 36. Turn skipped.
+[2026-05-08 19:31:11] MOVE asha (gray0): 10→11 [0.1ms]
+[2026-05-08 19:31:21] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:31:21] SCORE asha (gray0): Final=174.9, Time=81.9, Moves(27)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:31:21] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 37. Turn skipped.
+[2026-05-08 19:31:22] MOVE asha (gray0): 11→10 [0.2ms]
+[2026-05-08 19:31:32] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:31:32] SCORE asha (gray0): Final=173.2, Time=81.2, Moves(28)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:31:32] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 38. Turn skipped.
+[2026-05-08 19:31:32] MOVE asha (gray0): 10→11 [0.2ms]
+[2026-05-08 19:31:43] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:31:43] SCORE asha (gray0): Final=173.6, Time=80.6, Moves(29)=0.0, Pins(0)=0.0, Dist=93.0
+[2026-05-08 19:31:43] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 39. Turn skipped.
+[2026-05-08 19:31:43] MOVE asha (gray0): 11→10 [0.1ms]
+[2026-05-08 19:31:53] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:31:53] SCORE asha (gray0): Final=172.0, Time=80.0, Moves(30)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:31:53] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 40. Turn skipped.
+[2026-05-08 19:32:04] SCORE chetan (lawn green): Final=187.2, Time=92.2, Moves(10)=0.0, Pins(0)=0.0, Dist=95.0
+[2026-05-08 19:32:04] SCORE asha (gray0): Final=172.0, Time=80.0, Moves(30)=0.0, Pins(0)=0.0, Dist=92.0
+[2026-05-08 19:32:04] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 40. Turn skipped.

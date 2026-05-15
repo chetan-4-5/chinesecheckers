@@ -1,0 +1,10 @@
+[2026-05-06 15:57:53] GAME CREATED
+[2026-05-06 15:58:00] PLAYER JOINED: chetan as lawn green
+[2026-05-06 15:58:06] PLAYER JOINED: asha as gray0
+[2026-05-06 15:58:10] GAME STARTED — turn order: ['lawn green', 'gray0']
+[2026-05-06 15:58:20] SCORE chetan (lawn green): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 15:58:20] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 15:58:20] TURN TIMEOUT: Player with colour lawn green exceeded 10s at move 0. Turn skipped.
+[2026-05-06 15:58:30] SCORE chetan (lawn green): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 15:58:30] SCORE asha (gray0): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 15:58:30] TURN TIMEOUT: Player with colour gray0 exceeded 10s at move 0. Turn skipped.

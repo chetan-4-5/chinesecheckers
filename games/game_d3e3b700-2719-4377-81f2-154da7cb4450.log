@@ -1,0 +1,5 @@
+[2026-05-06 19:32:29] GAME CREATED
+[2026-05-06 19:32:29] PLAYER JOINED: Alice as yellow
+[2026-05-06 19:32:29] PLAYER JOINED: Bob as purple
+[2026-05-06 19:32:29] GAME STARTED — turn order: ['yellow', 'purple']
+[2026-05-06 19:32:29] MOVE Alice (yellow): 12→14 [0.0ms]

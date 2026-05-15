@@ -1,0 +1,7 @@
+[2026-05-06 13:13:07] GAME CREATED
+[2026-05-06 13:13:13] PLAYER JOINED: chetan as red
+[2026-05-06 13:13:20] PLAYER JOINED: asha as blue
+[2026-05-06 13:13:24] GAME STARTED — turn order: ['red', 'blue']
+[2026-05-06 13:13:34] SCORE chetan (red): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 13:13:34] SCORE asha (blue): Final=0.0, Time=0.0, Moves(0)=0.0, Pins(0)=0.0, Dist=0.0
+[2026-05-06 13:13:34] TURN TIMEOUT: Player with colour red exceeded 10s at move 0. Turn skipped.
